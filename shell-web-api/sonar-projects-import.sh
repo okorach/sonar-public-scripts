@@ -17,7 +17,10 @@ echo ---------------------------------------------------------------------------
 echo "List of project Keys: ($nbr_projects projects)"
 echo $list
 echo --------------------------------------------------------------------------------
+echo "*** Make sure that project export zip files have been moved in your ***"
+echo "*** <SQ_HOME>/data/governance/project_dumps/import directory then   ***"
 echo "Type [return] to start import"
+
 read foo
 
 for key in $list
