@@ -51,7 +51,7 @@ if [ "$repo" != "." ]; then
          echo "REPLAY-THE-PAST: Error while cloning repository" 1>&2
          exit $EXIT_GIT_ERROR
       else
-         dir=`basename $repo | sed 's/\.git$//'`
+         dir=$(basename $repo | sed 's/\.git$//')
          cd $dir
       fi
    fi
@@ -61,15 +61,15 @@ echo "REPLAY-THE-PAST: Replaying the past from $PWD"
 
 if [ "$tags" = "" ]; then
    # Get all tags of the repo in historical order
-   tags=`git tag --sort=creatordate`
+   tags=$(git tag --sort=creatordate)
 fi
 # Checkout each chosen tag of the projects and run a scan
 for tag in $tags
 do
    echo "REPLAY-THE-PAST: Fetching tag $tag"
-   d=`git show -s --format=%ci $tag^{commit} | sed -e 's/ /T/' -e 's/ //'`
+   d=$(git show -s --format=%ci $tag^{commit} | sed -e 's/ /T/' -e 's/ //')
    # Get date without time
-   # d=`git show -s --format=%ci $tag^{commit} | cut -d ' ' -f 1`
+   # d=$(git show -s --format=%ci $tag^{commit} | cut -d ' ' -f 1)
    ret=$?
 	[ $ret -ne 0 ] && "REPLAY-THE-PAST: Error $ret to get date for tag $tag" && exit $EXIT_GIT_ERROR
    echo "========================================================================"
