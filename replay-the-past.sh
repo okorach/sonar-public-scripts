@@ -72,17 +72,20 @@ do
    # d=$(git show -s --format=%ci $tag^{commit} | cut -d ' ' -f 1)
    ret=$?
 	[ $ret -ne 0 ] && "REPLAY-THE-PAST: Error $ret to get date for tag $tag" && exit $EXIT_GIT_ERROR
-   echo "========================================================================"
-   echo ""
-   echo "              Building and analysing $tag on date $d"
-   echo ""
-   echo "========================================================================"
+   cat <<EOF
+========================================================================
 
+     Building and analysing $tag on date $d
+
+========================================================================
+EOF
+
+   echo git checkout -f tags/$tag
    git checkout -f tags/$tag
    ret=$?
 	[ $ret -ne 0 ] && "REPLAY-THE-PAST: Error $ret when checking out tag $tag" && exit $EXIT_GIT_ERROR
    echo "REPLAY-THE-PAST: Running: $scan -Dsonar.projectDate=$d -Dsonar.projectVersion=$tag"
-   $scan -Dsonar.projectDate=$d -Dsonar.projectVersion=$tag
+   $scan -Dsonar.projectDate=$d -Dsonar.projectVersion=$tag >replay.$tag.log 2>&1
    echo "REPLAY-THE-PAST: Done for tag $tag, handling next"
 	# [ $? -ne 0 ] && exit $EXIT_SCAN_ERROR
 done
