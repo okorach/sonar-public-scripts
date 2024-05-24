@@ -35,7 +35,7 @@ while getopts ":g:s:t:?:" o; do
          repo=${OPTARG}
          ;;
       t)
-         tags=${OPTARG}
+         tags="${OPTARG}"
          ;;
       *)
          usage
@@ -72,10 +72,11 @@ do
    # d=$(git show -s --format=%ci $tag^{commit} | cut -d ' ' -f 1)
    ret=$?
 	[ $ret -ne 0 ] && "REPLAY-THE-PAST: Error $ret to get date for tag $tag" && exit $EXIT_GIT_ERROR
+   now=$(date +"%Y-%m-%d %H:%M:%S")
    cat <<EOF
 ========================================================================
 
-     Building and analysing $tag on date $d
+     $now: Analysing project code at $tag on date $d
 
 ========================================================================
 EOF
