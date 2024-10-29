@@ -61,7 +61,7 @@ echo "REPLAY-THE-PAST: Replaying the past from $PWD"
 
 if [ "$tags" = "" ]; then
    # Get all tags of the repo in historical order
-   tags=$(git tag --sort=creatordate)
+   tags=$(git tag --sort=creatordate | awk '{print}' ORS=' ')
 fi
 # Checkout each chosen tag of the projects and run a scan
 for tag in $tags
