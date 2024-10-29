@@ -56,7 +56,7 @@ fi
 
 if [ "$tags" = "" ]; then
    # Get all tags of the repo in historical order
-   tags=$(git tag --sort=creatordate)
+   tags=$(git tag --sort=creatordate | awk '{print}' ORS=' ')
 fi
 # Checkout each chosen tag of the projects and run a scan
 is_first=1
