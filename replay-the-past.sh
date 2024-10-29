@@ -86,7 +86,8 @@ EOF
    ret=$?
 	[ $ret -ne 0 ] && "REPLAY-THE-PAST: Error $ret when checking out tag $tag" && exit $EXIT_GIT_ERROR
    echo "REPLAY-THE-PAST: Running: $scan -Dsonar.projectDate=$d -Dsonar.projectVersion=$tag"
-   $scan -Dsonar.projectDate=$d -Dsonar.projectVersion=$tag >replay.$tag.log 2>&1
+   filetag=$(echo $tag | sed 's/\//./g')
+   $scan -Dsonar.projectDate=$d -Dsonar.projectVersion=$tag >replay.$filetag.log 2>&1
    echo "REPLAY-THE-PAST: Done for tag $tag, handling next"
 	# [ $? -ne 0 ] && exit $EXIT_SCAN_ERROR
 done
